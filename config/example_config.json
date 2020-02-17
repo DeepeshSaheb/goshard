@@ -1,6 +1,14 @@
-{
-    "username":"root",
-    "password":"password",
-    "hostname":"localhost",
-    "dbname":"test"
-}
+[
+    {
+        "username": "root1",
+        "password": "password2",
+        "hostname": "localhost",
+        "dbname": "test1"
+    },
+    {
+        "username": "root2",
+        "password": "password2",
+        "hostname": "localhost",
+        "dbname": "test2"
+    }
+]

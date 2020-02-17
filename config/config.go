@@ -15,23 +15,28 @@ type Config struct {
 	Dbname   string `json:"dbname"`
 }
 
-var configObj Config
+var configObj []Config
 
-func validateConfig(obj Config) error {
-	if obj.Username == "" {
-		return errors.New("Username name cannot be empty")
+func validateConfig(objArr []Config) error {
+	if len(objArr) == 0 {
+		return errors.New("Config cannot be empty")
 	}
+	for _, element := range objArr {
+		if element.Username == "" {
+			return errors.New("Username name cannot be empty")
+		}
 
-	if obj.Password == "" {
-		return errors.New("Password name cannot be empty")
-	}
+		if element.Password == "" {
+			return errors.New("Password name cannot be empty")
+		}
 
-	if obj.Hostname == "" {
-		return errors.New("Hostname name cannot be empty")
-	}
+		if element.Hostname == "" {
+			return errors.New("Hostname name cannot be empty")
+		}
 
-	if obj.Dbname == "" {
-		return errors.New("Database name cannot be empty")
+		if element.Dbname == "" {
+			return errors.New("Database name cannot be empty")
+		}
 	}
 
 	return nil
@@ -44,7 +49,7 @@ func LoadConfig(loc string) {
 	if err != nil {
 		panic(err)
 	}
-	obj := Config{}
+	var obj []Config
 	err = json.Unmarshal([]byte(dat), &obj)
 	if err != nil {
 		panic("Error unMarshaling config json object. " + err.Error())
@@ -58,7 +63,7 @@ func LoadConfig(loc string) {
 }
 
 //GetConfig should return the config object loaded from json file
-func GetConfig() Config {
+func GetConfig() []Config {
 	err := validateConfig(configObj)
 	if err != nil {
 		panic("config not loaded")
